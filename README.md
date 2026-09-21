@@ -3,7 +3,7 @@
 A static restaurant booking website built with **React** and **Tailwind CSS**.
 Baga is a fictional charcoal-grill restaurant; no real bookings are made.
 
-**Live demo:** _add your Vercel link here_
+**Live demo:** https://baga-reservations.vercel.app
 
 ---
 
