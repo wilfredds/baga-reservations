@@ -56,7 +56,19 @@ export default function Hero() {
       ref={sectionRef}
       className={`relative isolate overflow-hidden bg-void ${lit ? 'sparks-on' : ''}`}
     >
-      <div aria-hidden="true" className="ember-bed anim-recede absolute inset-0 -z-20" />
+      {/* The photograph carries the fire now, so the CSS ember bed is gone from here.
+          The breathing glow and the sparks stay: they're what makes it a live grill
+          rather than a picture of one. alt="" because the headline already says this. */}
+      <img
+        src="/img/hero.webp"
+        alt=""
+        aria-hidden="true"
+        width="1800"
+        height="1150"
+        fetchPriority="high"
+        decoding="async"
+        className="anim-recede absolute inset-0 -z-30 h-full w-full object-cover object-center"
+      />
       <div aria-hidden="true" className="ember-glow anim-breathe absolute inset-0 -z-20" />
       <div aria-hidden="true" className="ember-grain anim-drift absolute inset-0 -z-10" />
 
@@ -77,10 +89,15 @@ export default function Hero() {
         ))}
       </div>
 
-      {/* Keeps the text legible where the fire burns brightest. */}
+      {/* Two scrims, not one: the vertical keeps the headline off the smoke, the
+          horizontal keeps the left column dark while the food stays visible right. */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 -z-10 bg-gradient-to-b from-void/95 via-void/70 via-[74%] to-transparent"
+        className="absolute inset-0 -z-10 bg-linear-to-b from-void/95 via-void/70 via-[70%] to-void/45"
+      />
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 -z-10 bg-linear-to-r from-void/90 via-void/50 to-transparent"
       />
 
       <div className="relative mx-auto max-w-6xl px-5 pb-48 pt-20 sm:pb-48 sm:pt-28 lg:pb-56 lg:pt-32">

@@ -46,6 +46,26 @@ They then get a booking reference and can add the reservation to their calendar.
 
 Everything with real product logic in it — the date strip, the time grid, the party-size stepper, the buttons — stays hand-written, because shadcn has no equivalent and these are where the interesting edge cases live.
 
+## Photography
+
+Three photographs, all from [Unsplash](https://unsplash.com) under the
+[Unsplash License](https://unsplash.com/license) — free to use commercially, no
+attribution required. They are served as WebP from `public/img/`:
+
+| File | Where | Source |
+|---|---|---|
+| `hero.webp` | Hero background | `images.unsplash.com/photo-1556269923-e4ef51d69638` |
+| `menu.webp` | Beside the menu | `images.unsplash.com/photo-1586058584825-c1e87ed735b4` |
+| `coals.webp` | The band between menu and booking | `images.unsplash.com/photo-1588182657969-777d766e31ab` |
+
+371 KB for all three. Swap any of them by replacing the file — the layouts set
+explicit dimensions, so nothing shifts.
+
+There is deliberately **no photograph per dish**. Four stock images matched to
+four specific Filipino dishes meant one weak picture in the set, and a weak
+picture cheapens the three good ones beside it. If real photography of the
+actual food ever exists, the menu list is the place to add it.
+
 ## Run it locally
 
 Requires Node.js 20 or newer.

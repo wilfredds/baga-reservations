@@ -1,6 +1,7 @@
 import Header from './components/Header'
 import Hero from './components/Hero'
 import MenuHighlights from './components/MenuHighlights'
+import CoalBand from './components/CoalBand'
 import BookingSection from './components/booking/BookingSection'
 import Footer from './components/Footer'
 
@@ -12,6 +13,7 @@ export default function App() {
       <main>
         <Hero />
         <MenuHighlights />
+        <CoalBand />
         <BookingSection />
       </main>
       <Footer />
