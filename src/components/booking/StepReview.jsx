@@ -107,7 +107,7 @@ function ReviewCard({ title, rows, onEdit, disabled }) {
       <dl className="mt-3 divide-y divide-stone-100 text-sm">
         {rows.map(([label, value]) => (
           <div key={label} className="flex justify-between gap-6 py-2.5">
-            <dt className="text-stone-500">{label}</dt>
+            <dt className="text-stone-600">{label}</dt>
             <dd className="text-right font-medium break-words text-charcoal">{value}</dd>
           </div>
         ))}

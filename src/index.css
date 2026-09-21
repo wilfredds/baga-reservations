@@ -1,10 +1,10 @@
 @import "tailwindcss";
 
 /*
-  @theme defines our design tokens — the brand's fonts and colours.
+  @theme defines our design tokens — the brand's fonts, colours and easings.
   Every token here becomes a Tailwind class automatically:
     --color-ember-600  ->  bg-ember-600, text-ember-600, border-ember-600 ...
-    --font-display     ->  font-display
+    --ease-heat        ->  ease-heat
 */
 @theme {
   --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
@@ -13,17 +13,27 @@
   --color-paper: #faf7f2;
   --color-charcoal: #1c1917;
 
+  /* The dark end of the world: the grill itself, before anything is lit. */
+  --color-soot: #14100e;
+  --color-ash: #241e1a;
+
   --color-ember-50: #fff4ed;
   --color-ember-100: #ffe6d5;
   --color-ember-200: #fec8a8;
+  --color-ember-300: #fdab7b;
+  --color-ember-400: #f97a35;
   --color-ember-500: #e0561b;
   --color-ember-600: #c2410c;
   --color-ember-700: #9a3412;
   --color-ember-900: #5c1f08;
 
   --color-leaf-50: #eef6f0;
+  --color-leaf-400: #63b184;
   --color-leaf-600: #2f6b45;
   --color-leaf-700: #245236;
+
+  /* Confident deceleration — things arrive and settle, they never bounce. */
+  --ease-heat: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @layer base {
@@ -31,22 +41,343 @@
     scroll-behavior: smooth;
   }
 
-  /* Respect people who ask their device for less motion. */
-  @media (prefers-reduced-motion: reduce) {
-    html {
-      scroll-behavior: auto;
-    }
-  }
-
   body {
     @apply bg-paper font-sans text-charcoal antialiased;
+    /* Browser surfaces we didn't draw still belong to the design. */
+    caret-color: var(--color-ember-600);
+  }
+
+  ::selection {
+    background-color: var(--color-ember-600);
+    color: #fff;
+  }
+
+  /* One focus ring for the whole site, in the brand's colour. */
+  :focus-visible {
+    outline: 2px solid var(--color-ember-500);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  /* Firefox + modern browsers: a warm, thin scrollbar instead of the OS default. */
+  html {
+    scrollbar-color: var(--color-ember-200) transparent;
+    scrollbar-width: thin;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--color-ember-200);
+    border-radius: 999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: var(--color-ember-300);
+  }
+
+  /* Links that sit in running text get room to breathe under the underline. */
+  a {
+    text-underline-offset: 0.2em;
   }
 }
 
-/* A woven pattern inspired by banig, the Filipino hand-woven mat. Pure CSS, no image file. */
-.banig {
-  background-color: var(--color-ember-600);
+/* ------------------------------------------------------------------
+   THE EMBER BED
+   "Baga" means glowing embers, so the hero is a bed of live coals
+   rather than a photo. Layered radial gradients give each coal a real
+   falloff; the grain on top keeps it from looking like plastic.
+   ------------------------------------------------------------------ */
+.ember-bed {
+  background-color: #120d0a;
   background-image:
-    repeating-linear-gradient(45deg, rgb(255 255 255 / 0.09) 0 14px, transparent 14px 28px),
-    repeating-linear-gradient(-45deg, rgb(0 0 0 / 0.12) 0 14px, transparent 14px 28px);
+    /* A banked fire seen from across the room: pockets of heat at different
+       temperatures, not a single wash. Kept abstract on purpose — a gradient
+       pretending to be individual coals only ever reads as blur. */
+    radial-gradient(40% 32% at 18% 88%, rgb(255 146 52 / 0.9), transparent 70%),
+    radial-gradient(30% 24% at 40% 95%, rgb(255 118 30 / 0.85), transparent 72%),
+    radial-gradient(36% 28% at 62% 86%, rgb(246 96 18 / 0.85), transparent 72%),
+    radial-gradient(26% 21% at 84% 94%, rgb(232 82 14 / 0.78), transparent 74%),
+    radial-gradient(22% 18% at 95% 84%, rgb(214 70 10 / 0.6), transparent 76%),
+    radial-gradient(78% 44% at 50% 106%, rgb(150 36 4 / 0.9), transparent 76%),
+    linear-gradient(180deg, #120d0a 16%, #1c0f08 52%, #2e1205 100%);
+}
+
+/* Hotter pockets that swell and fade against the bed, so the fire is never
+   quite the same shape twice. */
+.ember-glow {
+  background-image:
+    radial-gradient(14% 11% at 22% 90%, rgb(255 182 96 / 0.5), transparent 70%),
+    radial-gradient(11% 9% at 55% 92%, rgb(255 166 78 / 0.45), transparent 72%),
+    radial-gradient(12% 10% at 80% 89%, rgb(255 174 88 / 0.42), transparent 71%);
+  mix-blend-mode: screen;
+}
+
+/* Sparks. A point of light is the one fire element that renders honestly —
+   it IS a small bright dot, so nothing is being faked. Each one drifts up and
+   burns out on its own schedule. */
+.spark {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 999px;
+  background: rgb(255 214 150);
+  box-shadow: 0 0 6px 1px rgb(255 160 70 / 0.9);
+  opacity: 0;
+}
+
+@keyframes spark-rise {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) scale(0.5);
+  }
+  10% {
+    opacity: 1;
+    transform: translate3d(calc(var(--dx) * 0.15), -12%, 0) scale(1);
+  }
+  70% {
+    opacity: 0.75;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(var(--dx), var(--dy), 0) scale(0.25);
+  }
+}
+
+/* Fine grain — the difference between "material" and "gradient". */
+.ember-grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.42'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+  opacity: 0.4;
+}
+
+/* ------------------------------------------------------------------
+   MOTION
+   One authored moment (the coals catching) plus quiet feedback.
+   Everything starts from a visible default, so a failed script or an
+   unsupported property can never leave the page blank.
+   ------------------------------------------------------------------ */
+@keyframes catch-light {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 6%, 0) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translate3d(0, -1.5%, 0) scale(1.04);
+  }
+}
+
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate3d(-1%, 0, 0);
+  }
+  50% {
+    transform: translate3d(1.5%, -1%, 0);
+  }
+}
+
+/* The headline doesn't fade in — light spreads across it, like a coal catching. */
+@keyframes spread-light {
+  from {
+    -webkit-mask-position: 140% 0;
+    mask-position: 140% 0;
+  }
+  to {
+    -webkit-mask-position: 0% 0;
+    mask-position: 0% 0;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 0.75rem, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes step-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 0.4rem, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes flare {
+  0% {
+    box-shadow: 0 0 0 0 rgb(194 65 12 / 0.45);
+  }
+  70% {
+    box-shadow: 0 0 0 1.1rem rgb(194 65 12 / 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgb(194 65 12 / 0);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .anim-catch {
+    animation: catch-light 900ms var(--ease-heat) both;
+  }
+
+  .anim-breathe {
+    animation: breathe 7s ease-in-out infinite;
+  }
+
+  .sparks-on .spark {
+    animation: spark-rise var(--dur) ease-out var(--delay) infinite;
+  }
+
+  .anim-drift {
+    animation: drift 15s ease-in-out infinite;
+  }
+
+  .anim-spread {
+    -webkit-mask-image: linear-gradient(100deg, #000 38%, rgb(0 0 0 / 0.15) 58%, transparent 72%);
+    mask-image: linear-gradient(100deg, #000 38%, rgb(0 0 0 / 0.15) 58%, transparent 72%);
+    -webkit-mask-size: 260% 100%;
+    mask-size: 260% 100%;
+    animation: spread-light 1100ms var(--ease-heat) both;
+  }
+
+  .anim-rise {
+    animation: rise 620ms var(--ease-heat) both;
+  }
+
+  /* A routine state change, not a focal entrance — so it moves half as far
+     and settles in well under half the time. */
+  .anim-step {
+    animation: step-in 380ms var(--ease-heat) both;
+  }
+
+  .anim-flare {
+    animation: flare 1200ms ease-out 1;
+  }
+
+  /* The heat recedes as you scroll away from the grill. Scroll-linked, so the
+     relationship itself carries the meaning — and it costs no JavaScript. */
+  @supports (animation-timeline: view()) {
+    .anim-recede {
+      animation: recede linear both;
+      animation-timeline: view();
+      animation-range: exit 0% exit 90%;
+    }
+  }
+}
+
+@keyframes recede {
+  to {
+    opacity: 0.35;
+  }
+}
+
+/* Reduced motion: fewer and gentler, not none. Colour and opacity still
+   confirm what happened; only the spatial movement goes away. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .anim-catch,
+  .anim-rise {
+    animation: rise 1ms linear both;
+  }
+
+  /* The step still fades, so the change is still confirmed — it just doesn't travel. */
+  .anim-step {
+    animation: step-in 180ms linear both;
+    transform: none !important;
+  }
+
+  .anim-breathe {
+    animation: breathe 12s ease-in-out infinite;
+    transform: none !important;
+  }
+
+  .anim-flare {
+    animation: none;
+  }
+}
+
+/* ------------------------------------------------------------------
+   SHADCN/UI BRIDGE
+   shadcn components are written against a fixed set of semantic tokens
+   (--popover, --primary, --ring ...). Pointing those at Baga's own
+   palette is what stops them arriving in the default neutral-grey look
+   that every other shadcn site ships with.
+   ------------------------------------------------------------------ */
+:root {
+  --radius: 0.75rem;
+
+  --background: #faf7f2;
+  --foreground: #1c1917;
+  --card: #ffffff;
+  --card-foreground: #1c1917;
+  --popover: #ffffff;
+  --popover-foreground: #1c1917;
+  --primary: #c2410c;
+  --primary-foreground: #ffffff;
+  --secondary: #fff4ed;
+  --secondary-foreground: #9a3412;
+  --muted: #f5f5f4;
+  --muted-foreground: #57534e;
+  --accent: #fff4ed;
+  --accent-foreground: #9a3412;
+  --destructive: #b91c1c;
+  --destructive-foreground: #ffffff;
+  --border: #e7e5e4;
+  --input: #d6d3d1;
+  --ring: #e0561b;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
 }

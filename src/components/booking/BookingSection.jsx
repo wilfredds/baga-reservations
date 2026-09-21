@@ -87,11 +87,13 @@ export default function BookingSection() {
     >
       <div className="mx-auto max-w-6xl px-5">
         <div className="max-w-2xl">
-          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-ember-700">Reservations</p>
-          <h2 id="reserve-title" className="mt-3 font-display text-4xl sm:text-5xl">
+          <h2
+            id="reserve-title"
+            className="font-display text-4xl tracking-[-0.015em] text-balance sm:text-5xl"
+          >
             Reserve a table
           </h2>
-          <p className="mt-4 text-lg text-stone-600">
+          <p className="mt-4 text-lg leading-relaxed text-stone-600">
             Book online for up to {RESTAURANT.maxPartyOnline} guests. It takes about a minute.
           </p>
         </div>
@@ -112,8 +114,10 @@ export default function BookingSection() {
               {title}
             </h3>
 
-            {/* Show only the current step. This is "conditional rendering". */}
-            <div className="mt-6">
+            {/* Show only the current step. This is "conditional rendering".
+                key={step} restarts the entrance animation on every move, so the
+                change of step is explained rather than just swapped underneath you. */}
+            <div key={step} className="anim-step mt-6">
               {step === 1 && (
                 <StepSchedule
                   partySize={partySize}

@@ -1,29 +1,33 @@
 import { RESTAURANT } from '../../data/restaurant'
+import Icon from '../ui/Icon'
 
 // The "−  2 guests  +" control.
 export default function PartySizePicker({ value, max, onChange }) {
   return (
     <div>
-      <div className="inline-flex items-center gap-1 rounded-full border border-stone-300 bg-white p-1.5">
-        <StepperButton label="Remove a guest" onClick={() => onChange(value - 1)} disabled={value <= 1}>
-          −
-        </StepperButton>
+      <div className="inline-flex items-center gap-1 rounded-full border border-stone-300 bg-white p-1.5 transition-colors duration-200 focus-within:border-ember-300">
+        <StepperButton label="Remove a guest" icon="minus" onClick={() => onChange(value - 1)} disabled={value <= 1} />
 
-        {/* <output> + aria-live: the new number is announced when it changes. */}
+        {/* <output> + aria-live: the new number is announced when it changes.
+            key={value} replays a 160ms tick, so the count acknowledges the tap. */}
         <output aria-live="polite" className="min-w-28 text-center">
-          <span className="font-display text-2xl">{value}</span>{' '}
+          <span
+            key={value}
+            className="anim-step inline-block font-display text-2xl tabular-nums"
+            style={{ animationDuration: '160ms' }}
+          >
+            {value}
+          </span>{' '}
           <span className="text-sm text-stone-600">{value === 1 ? 'guest' : 'guests'}</span>
         </output>
 
-        <StepperButton label="Add a guest" onClick={() => onChange(value + 1)} disabled={value >= max}>
-          +
-        </StepperButton>
+        <StepperButton label="Add a guest" icon="plus" onClick={() => onChange(value + 1)} disabled={value >= max} />
       </div>
 
       {value >= max && (
-        <p className="mt-3 text-sm text-stone-600">
+        <p className="anim-step mt-3 text-sm text-stone-600">
           Bringing more than {max}? Email{' '}
-          <a href={`mailto:${RESTAURANT.email}`} className="font-semibold text-ember-700 underline underline-offset-2">
+          <a href={`mailto:${RESTAURANT.email}`} className="font-semibold text-ember-700 underline">
             {RESTAURANT.email}
           </a>{' '}
           and we&rsquo;ll arrange a group booking.
@@ -34,15 +38,15 @@ export default function PartySizePicker({ value, max, onChange }) {
 }
 
 // h-11 w-11 = 44px: the minimum comfortable size for a finger to tap.
-function StepperButton({ label, children, ...rest }) {
+function StepperButton({ label, icon, ...rest }) {
   return (
     <button
       type="button"
       aria-label={label}
-      className="grid h-11 w-11 place-items-center rounded-full text-xl font-semibold text-charcoal hover:bg-stone-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ember-600 disabled:cursor-not-allowed disabled:text-stone-300 disabled:hover:bg-transparent"
+      className="grid h-11 w-11 place-items-center rounded-full text-charcoal transition-[background-color,transform] duration-150 ease-heat hover:bg-ember-50 motion-safe:active:scale-90 disabled:cursor-not-allowed disabled:text-stone-400 disabled:hover:bg-transparent disabled:active:scale-100"
       {...rest}
     >
-      <span aria-hidden="true">{children}</span>
+      <Icon name={icon} className="h-5 w-5" />
     </button>
   )
 }

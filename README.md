@@ -36,10 +36,14 @@ They then get a booking reference and can add the reservation to their calendar.
 
 - **React 19** — components and state
 - **Tailwind CSS 4** — styling, with brand tokens in `src/index.css`
+- **shadcn/ui** — Select, Popover and Calendar (Radix + react-day-picker underneath)
+- **lucide-react** — icons in the shadcn components
 - **Vite** — dev server and production build
 - No backend. Availability is simulated deterministically, so the same date and time always show the same result.
 
-shadcn/ui was optional in the brief. I left it out to keep every component hand-written and fully explainable; the `components/ui` folder follows the same pattern and could be swapped for shadcn components later.
+**shadcn/ui** covers the three controls where a hand-rolled version would have been worse than a well-tested one: the occasion **Select**, and the **Popover + Calendar** used to pick a date beyond the visible strip. Their tokens are remapped to Baga's palette in `src/index.css`, so they arrive in this brand rather than in shadcn's default neutral grey.
+
+Everything with real product logic in it — the date strip, the time grid, the party-size stepper, the buttons — stays hand-written, because shadcn has no equivalent and these are where the interesting edge cases live.
 
 ## Run it locally
 
@@ -83,6 +87,9 @@ src/
 - **Errors are designed out where possible.** Past dates can't be chosen at all, rather than being validated after the fact.
 - **Accessibility.** Real labels on every field, `aria-pressed` on toggle buttons, live announcements for changes, focus moved to each new step, and 44px touch targets.
 - **Dates use local time.** `toISOString()` converts to UTC and can shift the date by a day in the Philippines (UTC+8), so date keys are built from local date parts instead.
+- **The hero is drawn, not photographed.** *Baga* means glowing embers, so the hero is a bed of heat with sparks lifting off it — rendered in CSS. It carries the brand without waiting on a photo shoot, and a real photograph can replace it later without touching the layout.
+- **One authored motion moment, not reveals everywhere.** The coals catching light on load is the only choreographed sequence. Everything else — the step connector filling, the guest count ticking, slots staggering in — exists to explain a state change. Every animation has a `prefers-reduced-motion` path that keeps the feedback and drops the movement.
+- **The sparks stop when nobody is watching.** An `IntersectionObserver` plus a `visibilitychange` listener pause the loop when the hero scrolls away or the tab is backgrounded.
 
 ## Deploy
 
