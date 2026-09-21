@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+/*
+  @theme defines our design tokens — the brand's fonts and colours.
+  Every token here becomes a Tailwind class automatically:
+    --color-ember-600  ->  bg-ember-600, text-ember-600, border-ember-600 ...
+    --font-display     ->  font-display
+*/
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "DM Serif Display", Georgia, serif;
+
+  --color-paper: #faf7f2;
+  --color-charcoal: #1c1917;
+
+  --color-ember-50: #fff4ed;
+  --color-ember-100: #ffe6d5;
+  --color-ember-200: #fec8a8;
+  --color-ember-500: #e0561b;
+  --color-ember-600: #c2410c;
+  --color-ember-700: #9a3412;
+  --color-ember-900: #5c1f08;
+
+  --color-leaf-50: #eef6f0;
+  --color-leaf-600: #2f6b45;
+  --color-leaf-700: #245236;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Respect people who ask their device for less motion. */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    @apply bg-paper font-sans text-charcoal antialiased;
+  }
+}
+
+/* A woven pattern inspired by banig, the Filipino hand-woven mat. Pure CSS, no image file. */
+.banig {
+  background-color: var(--color-ember-600);
+  background-image:
+    repeating-linear-gradient(45deg, rgb(255 255 255 / 0.09) 0 14px, transparent 14px 28px),
+    repeating-linear-gradient(-45deg, rgb(0 0 0 / 0.12) 0 14px, transparent 14px 28px);
+}
