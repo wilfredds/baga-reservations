@@ -8,10 +8,10 @@ export default function MenuHighlights() {
   return (
     <section id="menu" className="scroll-mt-20 py-20 sm:py-24">
       <div className="mx-auto max-w-6xl px-5">
-        <h2 className="max-w-2xl font-display text-4xl tracking-[-0.015em] text-balance sm:text-5xl">
+        <h2 className="display max-w-2xl text-4xl uppercase text-cooled text-balance sm:text-5xl">
           What we&rsquo;re known for
         </h2>
-        <p className="mt-4 max-w-xl text-lg leading-relaxed text-stone-600">
+        <p className="mt-4 max-w-xl text-lg leading-relaxed text-ash">
           Four plates that come off the coals all night. The rest of the menu is on the table when
           you sit down.
         </p>
@@ -20,22 +20,22 @@ export default function MenuHighlights() {
           {MENU_HIGHLIGHTS.map((dish) => (
             <li
               key={dish.name}
-              className="group border-t border-stone-200 py-7 transition-colors duration-200 first:border-t-0 sm:first:border-t sm:[&:nth-child(2)]:border-t-0"
+              className="group border-t border-ash-dim/45 py-7 transition-colors duration-200 first:border-t-0 sm:first:border-t sm:[&:nth-child(2)]:border-t-0"
             >
               <div className="flex items-baseline gap-3">
-                <h3 className="font-display text-2xl tracking-[-0.01em] transition-colors duration-200 group-hover:text-ember-700">
+                <h3 className="display-sm text-2xl text-cooled transition-colors duration-200 group-hover:text-whitehot">
                   {dish.name}
                 </h3>
                 {/* The leader: a hairline that grows to fill whatever space is left. */}
                 <span
                   aria-hidden="true"
-                  className="h-px min-w-6 flex-1 translate-y-[-0.3em] bg-stone-300 transition-colors duration-200 group-hover:bg-ember-300"
+                  className="h-px min-w-6 flex-1 translate-y-[-0.3em] bg-ash-dim transition-colors duration-200 group-hover:bg-ember"
                 />
-                <p className="shrink-0 font-display text-2xl tabular-nums text-ember-700">
+                <p className="shrink-0 display-sm text-2xl tabular-nums text-ember">
                   {formatPeso(dish.price)}
                 </p>
               </div>
-              <p className="mt-2 max-w-md leading-relaxed text-stone-600">{dish.description}</p>
+              <p className="mt-2 max-w-md leading-relaxed text-ash">{dish.description}</p>
             </li>
           ))}
         </ul>

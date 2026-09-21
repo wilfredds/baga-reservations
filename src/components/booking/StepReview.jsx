@@ -41,7 +41,7 @@ export default function StepReview({ partySize, dateKey, time, details, onEdit, 
       <ReviewCard title="Your details" rows={detailRows} onEdit={() => onEdit(2)} disabled={isSubmitting} />
 
       <div>
-        <label className="flex cursor-pointer items-start gap-3 rounded-2xl border border-stone-300 bg-white p-4">
+        <label className="flex cursor-pointer items-start gap-3 rounded-2xl border border-ash-dim bg-uling p-4">
           <input
             type="checkbox"
             checked={agreed}
@@ -51,15 +51,15 @@ export default function StepReview({ partySize, dateKey, time, details, onEdit, 
             }}
             aria-invalid={showAgreeError ? true : undefined}
             aria-describedby={showAgreeError ? 'agree-error' : undefined}
-            className="mt-0.5 h-5 w-5 shrink-0 accent-ember-600"
+            className="mt-0.5 h-5 w-5 shrink-0 accent-ember"
           />
-          <span className="text-sm leading-relaxed text-stone-700">
+          <span className="text-sm leading-relaxed text-cooled">
             I understand my table is held for {RESTAURANT.holdMinutes} minutes after {formatTime(time)}. After
             that, it may be given to walk-in guests.
           </span>
         </label>
         {showAgreeError && (
-          <p id="agree-error" role="alert" className="mt-2 text-sm font-medium text-red-700">
+          <p id="agree-error" role="alert" className="mt-2 text-sm font-medium text-destructive">
             Please tick the box to confirm you&rsquo;ve read the holding policy.
           </p>
         )}
@@ -70,7 +70,7 @@ export default function StepReview({ partySize, dateKey, time, details, onEdit, 
         {isSubmitting ? 'Confirming your reservation…' : ''}
       </p>
 
-      <div className="flex items-center justify-between gap-3 border-t border-stone-200 pt-6">
+      <div className="flex items-center justify-between gap-3 border-t border-ash-dim/45 pt-6">
         <Button variant="ghost" onClick={onBack} disabled={isSubmitting}>
           ← Back
         </Button>
@@ -97,18 +97,18 @@ export default function StepReview({ partySize, dateKey, time, details, onEdit, 
 
 function ReviewCard({ title, rows, onEdit, disabled }) {
   return (
-    <div className="rounded-2xl border border-stone-200 bg-white p-5">
+    <div className="rounded-2xl border border-ash-dim/45 bg-uling p-5">
       <div className="flex items-center justify-between gap-4">
-        <h4 className="font-semibold text-charcoal">{title}</h4>
+        <h4 className="font-semibold text-cooled">{title}</h4>
         <Button variant="ghost" size="sm" onClick={onEdit} disabled={disabled}>
           Change
         </Button>
       </div>
-      <dl className="mt-3 divide-y divide-stone-100 text-sm">
+      <dl className="mt-3 divide-y divide-ash-dim/45 text-sm">
         {rows.map(([label, value]) => (
           <div key={label} className="flex justify-between gap-6 py-2.5">
-            <dt className="text-stone-600">{label}</dt>
-            <dd className="text-right font-medium break-words text-charcoal">{value}</dd>
+            <dt className="text-ash">{label}</dt>
+            <dd className="text-right font-medium break-words text-cooled">{value}</dd>
           </div>
         ))}
       </dl>

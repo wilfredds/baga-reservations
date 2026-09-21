@@ -5,27 +5,27 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 // aria-describedby) so a screen reader announces the label AND the error.
 
 const inputBase =
-  // stone-500 rather than stone-400: placeholder text has to clear 4.5:1 like any other text.
-  'w-full rounded-xl border bg-white px-4 py-3 text-base text-charcoal placeholder:text-stone-500 ' +
+  // Ash, not a dimmer grey: placeholder text has to clear 4.5:1 like any other text.
+  'w-full rounded-xl border bg-uling px-4 py-3 text-base text-cooled placeholder:text-ash ' +
   'transition-[border-color,box-shadow] duration-150 ease-heat ' +
-  'focus:border-ember-600 focus:outline-none focus:ring-2 focus:ring-ember-200'
+  'focus:border-ember focus:outline-none focus:ring-2 focus:ring-whitehot/35'
 // text-base (16px) matters: iPhones zoom into any input smaller than 16px.
 
 function FieldShell({ id, label, optional, hint, error, children }) {
   return (
     <div className="flex flex-col gap-1.5">
-      <label htmlFor={id} className="text-sm font-semibold text-charcoal">
+      <label htmlFor={id} className="text-sm font-semibold text-cooled">
         {label}
-        {optional && <span className="ml-1 font-normal text-stone-600">(optional)</span>}
+        {optional && <span className="ml-1 font-normal text-ash">(optional)</span>}
       </label>
       {children}
       {error ? (
-        <p id={`${id}-error`} className="text-sm font-medium text-red-700">
+        <p id={`${id}-error`} className="text-sm font-medium text-destructive">
           {error}
         </p>
       ) : (
         hint && (
-          <p id={`${id}-hint`} className="text-sm text-stone-600">
+          <p id={`${id}-hint`} className="text-sm text-ash">
             {hint}
           </p>
         )
@@ -52,7 +52,7 @@ export function TextField({ id, label, optional, hint, error, ref, ...inputProps
         name={id}
         aria-invalid={error ? true : undefined}
         aria-describedby={describedBy(id, error, hint)}
-        className={`${inputBase} ${error ? 'border-red-600' : 'border-stone-300'}`}
+        className={`${inputBase} ${error ? 'border-destructive' : 'border-ash-dim'}`}
         {...inputProps}
       />
     </FieldShell>
@@ -71,13 +71,13 @@ export function SelectField({ id, label, optional, hint, error, options, value, 
           id={id}
           aria-invalid={error ? true : undefined}
           aria-describedby={describedBy(id, error, hint)}
-          className={`h-auto w-full rounded-xl border bg-white px-4 py-3 text-base text-charcoal transition-[border-color,box-shadow] duration-150 ease-heat focus:border-ember-600 focus:ring-2 focus:ring-ember-200 ${
-            error ? 'border-red-600' : 'border-stone-300'
+          className={`h-auto w-full rounded-xl border bg-uling px-4 py-3 text-base text-cooled transition-[border-color,box-shadow] duration-150 ease-heat focus:border-ember focus:ring-2 focus:ring-whitehot/35 ${
+            error ? 'border-destructive' : 'border-ash-dim'
           }`}
         >
           <SelectValue />
         </SelectTrigger>
-        <SelectContent className="rounded-xl border-stone-200">
+        <SelectContent className="rounded-xl border-ash-dim/45">
           {options.map((option) => (
             <SelectItem key={option} value={option} className="rounded-lg py-2 text-base">
               {option}
@@ -99,7 +99,7 @@ export function TextAreaField({ id, label, optional, hint, error, ref, ...textar
         rows={3}
         aria-invalid={error ? true : undefined}
         aria-describedby={describedBy(id, error, hint)}
-        className={`${inputBase} resize-y ${error ? 'border-red-600' : 'border-stone-300'}`}
+        className={`${inputBase} resize-y ${error ? 'border-destructive' : 'border-ash-dim'}`}
         {...textareaProps}
       />
     </FieldShell>

@@ -124,7 +124,7 @@ export default function StepDetails({ details, onChange, onBack, onContinue }) {
         </p>
       )}
 
-      <div className="flex items-center justify-between gap-3 border-t border-stone-200 pt-6">
+      <div className="flex items-center justify-between gap-3 border-t border-ash-dim/45 pt-6">
         <Button variant="ghost" onClick={onBack}>
           ← Back
         </Button>

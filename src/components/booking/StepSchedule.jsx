@@ -52,14 +52,14 @@ export default function StepSchedule({
       {/* min-w-0: browsers give <fieldset> a default minimum width equal to its content,
           so without this the scrolling date strip would stretch the whole page on phones. */}
       <fieldset className="min-w-0">
-        <legend className="text-sm font-semibold text-charcoal">How many guests?</legend>
+        <legend className="text-sm font-semibold text-cooled">How many guests?</legend>
         <div className="mt-3">
           <PartySizePicker value={partySize} max={RESTAURANT.maxPartyOnline} onChange={onPartySizeChange} />
         </div>
       </fieldset>
 
       <fieldset className="min-w-0">
-        <legend className="text-sm font-semibold text-charcoal">Pick a date</legend>
+        <legend className="text-sm font-semibold text-cooled">Pick a date</legend>
         <div className="mt-3">
           <DateStrip
             dates={dates}
@@ -73,7 +73,7 @@ export default function StepSchedule({
                     Open calendar
                   </Button>
                 </PopoverTrigger>
-                <PopoverContent align="end" className="w-auto rounded-2xl border-stone-200 p-2">
+                <PopoverContent align="end" className="w-auto rounded-2xl border-ash-dim/45 p-2">
                   <Calendar
                     mode="single"
                     selected={dateKey ? fromDateKey(dateKey) : undefined}
@@ -95,7 +95,7 @@ export default function StepSchedule({
       </fieldset>
 
       <fieldset className="min-w-0">
-        <legend className="text-sm font-semibold text-charcoal">Pick a time</legend>
+        <legend className="text-sm font-semibold text-cooled">Pick a time</legend>
         <div className="mt-3">
           <TimeSlots
             key={`${dateKey ?? 'none'}-${partySize}`}
@@ -110,14 +110,13 @@ export default function StepSchedule({
         </div>
       </fieldset>
 
-      <div className="flex flex-col-reverse items-stretch gap-3 border-t border-stone-200 pt-6 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex flex-col-reverse items-stretch gap-3 border-t border-ash-dim/45 pt-6 sm:flex-row sm:items-center sm:justify-between">
         {/* aria-live: screen readers announce this text whenever it changes. */}
-        <p aria-live="polite" className="text-sm text-stone-600">
+        <p aria-live="polite" className="text-sm text-ash">
           {missing ?? 'Looking good — next, your details.'}
         </p>
         <Button size="lg" onClick={onContinue} disabled={Boolean(missing)}>
           Continue
-          <Icon name="arrowRight" className="h-4 w-4" />
         </Button>
       </div>
     </div>

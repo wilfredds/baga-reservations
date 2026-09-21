@@ -15,7 +15,7 @@ export default function TimeSlots({
   // Empty state 1: no date chosen yet.
   if (!services) {
     return (
-      <p className="anim-step rounded-2xl border border-dashed border-stone-300 bg-white px-5 py-6 text-center text-sm text-stone-600">
+      <p className="anim-step rounded-2xl border border-dashed border-ash-dim bg-uling px-5 py-6 text-center text-sm text-ash">
         Choose a date above and the available times will appear here.
       </p>
     )
@@ -24,19 +24,19 @@ export default function TimeSlots({
   // Empty state 2: a date is chosen, but nothing is left — so help them find another day.
   if (isDayFull) {
     return (
-      <div className="anim-step rounded-2xl border border-dashed border-stone-300 bg-white px-5 py-6 text-center">
-        <p className="font-semibold text-charcoal">
+      <div className="anim-step rounded-2xl border border-dashed border-ash-dim bg-uling px-5 py-6 text-center">
+        <p className="font-semibold text-cooled">
           No tables left for {partySize} {partySize === 1 ? 'guest' : 'guests'} on this day.
         </p>
         {nextOpenDate ? (
           <>
-            <p className="mt-1 text-sm text-stone-600">The next day with space is {formatLongDate(nextOpenDate)}.</p>
+            <p className="mt-1 text-sm text-ash">The next day with space is {formatLongDate(nextOpenDate)}.</p>
             <Button variant="secondary" className="mt-4" onClick={() => onJumpToDate(nextOpenDate)}>
               Show {formatLongDate(nextOpenDate)}
             </Button>
           </>
         ) : (
-          <p className="mt-1 text-sm text-stone-600">Try a smaller group, or email us and we&rsquo;ll help.</p>
+          <p className="mt-1 text-sm text-ash">Try a smaller group, or email us and we&rsquo;ll help.</p>
         )}
       </div>
     )
@@ -46,7 +46,7 @@ export default function TimeSlots({
     <div className="flex flex-col gap-6">
       {services.map((service) => (
         <div key={service.id}>
-          <p className="text-sm font-semibold text-stone-700">{service.label}</p>
+          <p className="text-sm font-semibold text-cooled">{service.label}</p>
 
           <div className="mt-2 grid grid-cols-3 gap-2 sm:grid-cols-4">
             {service.slots.map((slot, index) => {
@@ -58,15 +58,15 @@ export default function TimeSlots({
               }
 
               let look =
-                'border-stone-300 bg-white text-charcoal hover:border-ember-400 hover:bg-ember-50 motion-safe:active:scale-95'
-              let noteColour = slot.seatsLeft <= 6 ? 'text-ember-700' : 'text-leaf-600'
+                'border-ash-dim bg-uling text-cooled hover:border-ember hover:bg-uling-2 motion-safe:active:scale-95'
+              let noteColour = slot.seatsLeft <= 6 ? 'text-ember' : 'text-leaf-400'
               if (!slot.available) {
-                look = 'cursor-not-allowed border-transparent bg-stone-100 text-stone-500'
-                noteColour = 'text-stone-500'
+                look = 'cursor-not-allowed border-transparent bg-uling-2 text-ash'
+                noteColour = 'text-ash'
               } else if (isSelected) {
                 look =
-                  'border-ember-600 bg-ember-600 text-white shadow-[0_6px_16px_-6px_rgb(194_65_12_/_0.7)] motion-safe:active:scale-95'
-                noteColour = 'text-ember-100'
+                  'border-ember bg-ember text-void shadow-[0_6px_16px_-6px_rgb(226_86_26_/_0.75)] motion-safe:active:scale-95'
+                noteColour = 'text-void/75'
               }
 
               return (

@@ -83,17 +83,17 @@ export default function BookingSection() {
     <section
       id="reserve"
       aria-labelledby="reserve-title"
-      className="scroll-mt-20 border-t border-stone-200 bg-white py-20"
+      className="scroll-mt-20 border-t border-ash-dim/45 bg-void py-20 sm:py-24"
     >
       <div className="mx-auto max-w-6xl px-5">
         <div className="max-w-2xl">
           <h2
             id="reserve-title"
-            className="font-display text-4xl tracking-[-0.015em] text-balance sm:text-5xl"
+            className="display text-4xl uppercase text-cooled text-balance sm:text-5xl"
           >
             Reserve a table
           </h2>
-          <p className="mt-4 text-lg leading-relaxed text-stone-600">
+          <p className="mt-4 text-lg leading-relaxed text-ash">
             Book online for up to {RESTAURANT.maxPartyOnline} guests. It takes about a minute.
           </p>
         </div>
@@ -103,13 +103,13 @@ export default function BookingSection() {
         <div
           className={`mt-10 grid grid-cols-1 items-start gap-6 ${isDone ? '' : 'lg:grid-cols-[minmax(0,1fr)_20rem]'}`}
         >
-          <div className="rounded-3xl border border-stone-200 bg-paper p-5 sm:p-8">
+          <div className="lit-edge rounded-2xl border border-ash-dim/45 bg-uling p-5 sm:p-8">
             {!isDone && <StepIndicator steps={STEPS} current={step} />}
 
             <h3
               ref={headingRef}
               tabIndex={-1}
-              className={`${isDone ? '' : 'mt-7'} scroll-mt-28 font-display text-3xl text-balance focus:outline-none`}
+              className={`${isDone ? '' : 'mt-7'} scroll-mt-28 display-sm text-3xl text-balance focus:outline-none`}
             >
               {title}
             </h3>

@@ -6,23 +6,24 @@ import { buttonStyles } from './ui/Button'
 // sparks never re-scatter on a re-render. dx/dy are how far each one drifts
 // before it burns out.
 const SPARKS = [
-  { left: '7%', bottom: '4%', dx: '14px', dy: '-190px', dur: '6.5s', delay: '0s' },
-  { left: '15%', bottom: '7%', dx: '-10px', dy: '-150px', dur: '5.2s', delay: '1.4s' },
-  { left: '23%', bottom: '3%', dx: '20px', dy: '-230px', dur: '7.4s', delay: '2.6s' },
-  { left: '31%', bottom: '9%', dx: '-16px', dy: '-170px', dur: '5.8s', delay: '0.7s' },
-  { left: '39%', bottom: '5%', dx: '12px', dy: '-210px', dur: '6.9s', delay: '3.1s' },
-  { left: '47%', bottom: '8%', dx: '-8px', dy: '-160px', dur: '5.4s', delay: '1.9s' },
-  { left: '55%', bottom: '4%', dx: '18px', dy: '-240px', dur: '7.8s', delay: '0.3s' },
-  { left: '63%', bottom: '10%', dx: '-14px', dy: '-145px', dur: '5.1s', delay: '2.2s' },
-  { left: '71%', bottom: '6%', dx: '10px', dy: '-200px', dur: '6.6s', delay: '3.7s' },
-  { left: '79%', bottom: '3%', dx: '-18px', dy: '-225px', dur: '7.1s', delay: '1.1s' },
-  { left: '87%', bottom: '8%', dx: '16px', dy: '-165px', dur: '5.6s', delay: '2.9s' },
-  { left: '94%', bottom: '5%', dx: '-12px', dy: '-195px', dur: '6.2s', delay: '4.2s' },
+  { left: '7%', bottom: '14%', dx: '14px', dy: '-190px', dur: '6.5s', delay: '0s' },
+  { left: '15%', bottom: '17%', dx: '-10px', dy: '-150px', dur: '5.2s', delay: '1.4s' },
+  { left: '23%', bottom: '13%', dx: '20px', dy: '-230px', dur: '7.4s', delay: '2.6s' },
+  { left: '31%', bottom: '19%', dx: '-16px', dy: '-170px', dur: '5.8s', delay: '0.7s' },
+  { left: '39%', bottom: '15%', dx: '12px', dy: '-210px', dur: '6.9s', delay: '3.1s' },
+  { left: '47%', bottom: '18%', dx: '-8px', dy: '-160px', dur: '5.4s', delay: '1.9s' },
+  { left: '55%', bottom: '14%', dx: '18px', dy: '-240px', dur: '7.8s', delay: '0.3s' },
+  { left: '63%', bottom: '20%', dx: '-14px', dy: '-145px', dur: '5.1s', delay: '2.2s' },
+  { left: '71%', bottom: '16%', dx: '10px', dy: '-200px', dur: '6.6s', delay: '3.7s' },
+  { left: '79%', bottom: '13%', dx: '-18px', dy: '-225px', dur: '7.1s', delay: '1.1s' },
+  { left: '87%', bottom: '18%', dx: '16px', dy: '-165px', dur: '5.6s', delay: '2.9s' },
+  { left: '94%', bottom: '15%', dx: '-12px', dy: '-195px', dur: '6.2s', delay: '4.2s' },
 ]
 
-// The hero is the grill itself: a bed of heat that catches light on load, with
-// sparks lifting off it. "Baga" means glowing embers, so the brand's own
-// material does the work a stock photograph would otherwise be asked to do.
+// The hero is the grill. "Baga" means glowing embers, so the brand's own
+// material does the work a stock photograph would otherwise be asked to do,
+// and the headline is set in the same face as everything else — just pushed
+// wide and heavy until it reads like stencilling on grill equipment.
 export default function Hero() {
   const sectionRef = useRef(null)
   const [lit, setLit] = useState(false)
@@ -53,7 +54,7 @@ export default function Hero() {
     <section
       id="top"
       ref={sectionRef}
-      className={`relative isolate overflow-hidden bg-soot text-white ${lit ? 'sparks-on' : ''}`}
+      className={`relative isolate overflow-hidden bg-void ${lit ? 'sparks-on' : ''}`}
     >
       <div aria-hidden="true" className="ember-bed anim-recede absolute inset-0 -z-20" />
       <div aria-hidden="true" className="ember-glow anim-breathe absolute inset-0 -z-20" />
@@ -79,23 +80,23 @@ export default function Hero() {
       {/* Keeps the text legible where the fire burns brightest. */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 -z-10 bg-gradient-to-b from-soot/85 via-soot/40 to-transparent"
+        className="absolute inset-0 -z-10 bg-gradient-to-b from-void/95 via-void/70 via-[74%] to-transparent"
       />
 
-      <div className="relative mx-auto max-w-6xl px-5 pb-32 pt-20 sm:pb-40 sm:pt-28 lg:pb-52 lg:pt-32">
-        <h1 className="anim-spread max-w-4xl font-display text-[2.75rem] leading-[1.02] tracking-[-0.02em] text-balance sm:text-6xl lg:text-[4.5rem]">
-          Cooked slowly, over live coals.
+      <div className="relative mx-auto max-w-6xl px-5 pb-48 pt-20 sm:pb-48 sm:pt-28 lg:pb-56 lg:pt-32">
+        <h1 className="anim-spread display max-w-5xl text-[2.6rem] uppercase text-cooled text-balance sm:text-[4rem] lg:text-[5.75rem]">
+          Cooked slowly, over live coals
         </h1>
 
         <p
-          className="anim-rise mt-7 max-w-xl text-lg leading-relaxed text-ember-100/90"
+          className="anim-rise mt-8 max-w-lg text-lg leading-relaxed text-ash"
           style={{ animationDelay: '260ms' }}
         >
           Liempo, inasal and pusit grilled the way they&rsquo;re meant to be — over <em>baga</em>, the
           glowing embers that gave us our name.
         </p>
 
-        <div className="anim-rise mt-9 flex flex-wrap gap-3" style={{ animationDelay: '400ms' }}>
+        <div className="anim-rise mt-10 flex flex-wrap gap-3" style={{ animationDelay: '400ms' }}>
           <a href="#reserve" className={buttonStyles({ size: 'lg' })}>
             Reserve a table
           </a>
@@ -106,22 +107,22 @@ export default function Hero() {
 
         {/* Opening hours as plain facts on a hairline rule — no card, no label above them. */}
         <dl
-          className="anim-rise mt-14 flex flex-wrap gap-x-10 gap-y-5 border-t border-white/15 pt-6 text-sm sm:mt-20"
+          className="anim-rise mt-16 flex flex-wrap gap-x-12 gap-y-6 border-t border-ash-dim/60 pt-7 text-sm sm:mt-24"
           style={{ animationDelay: '540ms' }}
         >
           {SERVICES.map((service) => (
             <div key={service.id}>
-              <dt className="font-display text-lg text-white">{service.label}</dt>
-              <dd className="mt-0.5 tabular-nums text-ember-100/80">{service.hours}</dd>
+              <dt className="display-sm text-lg text-cooled">{service.label}</dt>
+              <dd className="mt-1 tabular-nums text-ash">{service.hours}</dd>
             </div>
           ))}
           <div>
-            <dt className="font-display text-lg text-white">Closed Mondays</dt>
-            <dd className="mt-0.5 text-ember-100/80">The grill needs a rest too</dd>
+            <dt className="display-sm text-lg text-cooled">Closed Mondays</dt>
+            <dd className="mt-1 text-ash">The grill needs a rest too</dd>
           </div>
           <div>
-            <dt className="font-display text-lg text-white">Find us</dt>
-            <dd className="mt-0.5 text-ember-100/80">{RESTAURANT.city}</dd>
+            <dt className="display-sm text-lg text-cooled">Find us</dt>
+            <dd className="mt-1 text-ash">{RESTAURANT.city}</dd>
           </div>
         </dl>
       </div>

@@ -21,8 +21,8 @@ export default function StepIndicator({ steps, current }) {
                 status === 'done'
                   ? 'bg-leaf-600 text-white'
                   : status === 'current'
-                    ? 'motion-safe:anim-flare bg-ember-600 text-white'
-                    : 'bg-stone-200 text-stone-600'
+                    ? 'motion-safe:anim-flare bg-ember text-void'
+                    : 'bg-uling text-ash ring-1 ring-inset ring-ash-dim/60'
               }`}
             >
               {status === 'done' ? <Icon name="check" className="h-4 w-4" /> : step.number}
@@ -32,14 +32,14 @@ export default function StepIndicator({ steps, current }) {
             {/* Labels are visually hidden on phones but still read out by screen readers. */}
             <span
               className={`sr-only font-medium transition-colors duration-300 sm:not-sr-only ${
-                status === 'upcoming' ? 'text-stone-500' : 'text-charcoal'
+                status === 'upcoming' ? 'text-ash' : 'text-cooled'
               }`}
             >
               {step.label}
             </span>
 
             {!isLast && (
-              <span aria-hidden="true" className="relative h-px flex-1 overflow-hidden bg-stone-300">
+              <span aria-hidden="true" className="relative h-px flex-1 overflow-hidden bg-uling-2">
                 <span
                   className={`absolute inset-0 origin-left bg-leaf-600 transition-transform duration-500 ease-heat ${
                     step.number < current ? 'scale-x-100' : 'scale-x-0'

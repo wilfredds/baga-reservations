@@ -4,12 +4,12 @@ import { buttonStyles } from './ui/Button'
 export default function Header() {
   return (
     // Dark all the way down: the bar, the hero below it and the footer bookend
-    // the warm paper of the page between them.
-    <header className="sticky top-0 z-30 border-b border-white/10 bg-soot/85 text-white backdrop-blur-md">
+    // the charcoal of the page between them.
+    <header className="sticky top-0 z-30 border-b border-ash-dim/45 bg-void/80 text-cooled backdrop-blur-md">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3.5">
-        <a href="#top" className="font-display text-2xl tracking-tight">
+        <a href="#top" className="display text-2xl uppercase">
           {RESTAURANT.name}
-          <span className="text-ember-400">.</span>
+          <span className="text-ember">.</span>
         </a>
 
         <nav aria-label="Main">
@@ -18,7 +18,7 @@ export default function Header() {
             <li className="hidden sm:block">
               <a
                 href="#menu"
-                className="text-stone-300 transition-colors duration-150 hover:text-white"
+                className="text-ash transition-colors duration-150 hover:text-cooled"
               >
                 Menu
               </a>
@@ -26,7 +26,7 @@ export default function Header() {
             <li className="hidden sm:block">
               <a
                 href="#visit"
-                className="text-stone-300 transition-colors duration-150 hover:text-white"
+                className="text-ash transition-colors duration-150 hover:text-cooled"
               >
                 Visit
               </a>

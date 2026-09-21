@@ -4,23 +4,25 @@
 // we already express in four lines, and its defaults don't match this palette.
 
 const VARIANTS = {
+  // Black on ember, not white. White on this orange is 3.8:1 and fails;
+  // black is 5.6:1, and it reads like the stencilled type on grill equipment.
   primary: [
-    'bg-ember-600 text-white shadow-[0_1px_2px_rgb(92_31_8_/_0.35)]',
-    'hover:bg-ember-500 hover:shadow-[0_6px_18px_-6px_rgb(194_65_12_/_0.65)]',
-    'disabled:bg-stone-300 disabled:text-stone-600 disabled:shadow-none',
+    'bg-ember text-void',
+    'hover:bg-whitehot hover:shadow-[0_6px_20px_-6px_rgb(226_86_26_/_0.8)]',
+    'disabled:bg-uling-2 disabled:text-ash disabled:shadow-none',
   ].join(' '),
   secondary: [
-    'bg-white text-charcoal ring-1 ring-inset ring-stone-300',
-    'hover:bg-stone-50 hover:ring-ember-300',
-    'disabled:text-stone-500 disabled:hover:bg-white',
+    'bg-uling-2 text-cooled ring-1 ring-inset ring-ash-dim',
+    'hover:bg-uling-2 hover:ring-ember hover:text-whitehot',
+    'disabled:text-ash-dim disabled:hover:ring-ash-dim',
   ].join(' '),
-  // For the dark, ember-lit hero: readable without punching a white hole in the coals.
+  // An outline that sits on the coals without punching a hole in them.
   onDark: [
-    'bg-white/10 text-white ring-1 ring-inset ring-white/30 backdrop-blur-sm',
-    'hover:bg-white/20 hover:ring-white/50',
-    'disabled:text-white/50',
+    'bg-transparent text-cooled ring-1 ring-inset ring-ash',
+    'hover:text-void hover:bg-cooled hover:ring-cooled',
+    'disabled:text-ash-dim',
   ].join(' '),
-  ghost: 'text-ember-700 hover:bg-ember-50 disabled:text-stone-500',
+  ghost: 'text-ember hover:bg-uling-2 hover:text-whitehot disabled:text-ash-dim',
 }
 
 const SIZES = {
@@ -33,7 +35,8 @@ const SIZES = {
 // Exported separately so links (<a>) can look exactly like buttons too.
 export function buttonStyles({ variant = 'primary', size = 'md', className = '' } = {}) {
   return [
-    'inline-flex items-center justify-center gap-2 rounded-full font-semibold',
+    // Square-ish, not pill: this world is stencilled and industrial, not soft.
+    'inline-flex items-center justify-center gap-2 rounded-md font-semibold',
     // 150ms is immediate feedback; the press is a real 1px, so the control feels physical.
     'transition-[background-color,box-shadow,transform,color] duration-150 ease-heat',
     'motion-safe:active:translate-y-px',

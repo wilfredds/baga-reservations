@@ -24,13 +24,13 @@ export default function DateStrip({ dates, selectedKey, onSelect, action = null 
           const isSelected = day.key === selectedKey
 
           let look =
-            'border-stone-300 bg-white text-charcoal hover:border-ember-400 hover:bg-ember-50 motion-safe:active:scale-95'
+            'border-ash-dim bg-uling text-cooled hover:border-ember hover:bg-uling-2 motion-safe:active:scale-95'
           if (day.isClosed) {
-            look = 'cursor-not-allowed border-dashed border-stone-300 bg-transparent text-stone-500'
+            look = 'cursor-not-allowed border-dashed border-ash-dim bg-transparent text-ash'
           } else if (isSelected) {
             // The chosen day glows like a coal that just caught.
             look =
-              'border-ember-600 bg-ember-600 text-white shadow-[0_6px_16px_-6px_rgb(194_65_12_/_0.7)] motion-safe:active:scale-95'
+              'border-ember bg-ember text-void shadow-[0_6px_16px_-6px_rgb(226_86_26_/_0.75)] motion-safe:active:scale-95'
           }
 
           return (
@@ -47,14 +47,14 @@ export default function DateStrip({ dates, selectedKey, onSelect, action = null 
               <span className="text-[0.7rem] font-semibold uppercase tracking-wider">
                 {day.isToday ? 'Today' : formatWeekdayShort(day.date)}
               </span>
-              <span className="font-display text-2xl leading-tight tabular-nums">{day.date.getDate()}</span>
+              <span className="display-sm text-2xl leading-tight tabular-nums">{day.date.getDate()}</span>
               <span className="text-xs">{day.isClosed ? 'Closed' : formatMonthShort(day.date)}</span>
             </button>
           )
         })}
       </div>
       <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
-        <p className="text-xs text-stone-600">
+        <p className="text-xs text-ash">
           Showing the next {RESTAURANT.bookingWindowDays / 7} weeks — scroll sideways for more. We&rsquo;re closed on
           Mondays.
         </p>

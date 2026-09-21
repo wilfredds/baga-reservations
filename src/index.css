@@ -1,68 +1,61 @@
 @import "tailwindcss";
 
 /*
-  @theme defines our design tokens — the brand's fonts, colours and easings.
-  Every token here becomes a Tailwind class automatically:
-    --color-ember-600  ->  bg-ember-600, text-ember-600, border-ember-600 ...
-    --ease-heat        ->  ease-heat
+  BAGA — "uling" (charcoal)
+
+  One chroma. Ember is the only colour on the page; everything else is black,
+  charcoal and warm ash. That restraint is what lets the ember read as heat
+  rather than as a brand accent.
+
+  Light comes from below. Every glow sits at the bottom edge of its surface,
+  because the fire is underneath the food.
 */
 @theme {
-  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "DM Serif Display", Georgia, serif;
+  /* One family, variable on width and weight. No serif anywhere. */
+  --font-sans: "Archivo", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Archivo", ui-sans-serif, system-ui, sans-serif;
 
-  --color-paper: #faf7f2;
-  --color-charcoal: #1c1917;
+  /* True black, not a tinted near-black standing in for it. */
+  --color-void: #000000;
+  --color-uling: #17140f;
+  --color-uling-2: #221d17;
 
-  /* The dark end of the world: the grill itself, before anything is lit. */
-  --color-soot: #14100e;
-  --color-ash: #241e1a;
+  --color-ash: #8a8377;
+  --color-ash-dim: #4a453e;
+  --color-cooled: #cfc7b8;
 
-  --color-ember-50: #fff4ed;
-  --color-ember-100: #ffe6d5;
-  --color-ember-200: #fec8a8;
-  --color-ember-300: #fdab7b;
-  --color-ember-400: #f97a35;
-  --color-ember-500: #e0561b;
-  --color-ember-600: #c2410c;
-  --color-ember-700: #9a3412;
-  --color-ember-900: #5c1f08;
+  /* Heat, in three temperatures. */
+  --color-ember: #e2561a;
+  --color-ember-deep: #a7350b;
+  --color-whitehot: #ffd9a0;
 
-  --color-leaf-50: #eef6f0;
   --color-leaf-400: #63b184;
   --color-leaf-600: #2f6b45;
-  --color-leaf-700: #245236;
 
-  /* Confident deceleration — things arrive and settle, they never bounce. */
   --ease-heat: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
+    scrollbar-color: var(--color-ash-dim) transparent;
+    scrollbar-width: thin;
   }
 
   body {
-    @apply bg-paper font-sans text-charcoal antialiased;
-    /* Browser surfaces we didn't draw still belong to the design. */
-    caret-color: var(--color-ember-600);
+    @apply bg-void font-sans text-cooled antialiased;
+    caret-color: var(--color-ember);
   }
 
   ::selection {
-    background-color: var(--color-ember-600);
+    background-color: var(--color-ember);
     color: #fff;
   }
 
-  /* One focus ring for the whole site, in the brand's colour. */
   :focus-visible {
-    outline: 2px solid var(--color-ember-500);
+    outline: 2px solid var(--color-whitehot);
     outline-offset: 2px;
     border-radius: 2px;
-  }
-
-  /* Firefox + modern browsers: a warm, thin scrollbar instead of the OS default. */
-  html {
-    scrollbar-color: var(--color-ember-200) transparent;
-    scrollbar-width: thin;
   }
 
   ::-webkit-scrollbar {
@@ -73,105 +66,94 @@
     background: transparent;
   }
   ::-webkit-scrollbar-thumb {
-    background-color: var(--color-ember-200);
+    background-color: var(--color-ash-dim);
     border-radius: 999px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background-color: var(--color-ember-300);
+    background-color: var(--color-ash);
   }
 
-  /* Links that sit in running text get room to breathe under the underline. */
   a {
     text-underline-offset: 0.2em;
   }
 }
 
-/* ------------------------------------------------------------------
-   THE EMBER BED
-   "Baga" means glowing embers, so the hero is a bed of live coals
-   rather than a photo. Layered radial gradients give each coal a real
-   falloff; the grain on top keeps it from looking like plastic.
-   ------------------------------------------------------------------ */
-.ember-bed {
-  background-color: #120d0a;
-  background-image:
-    /* A banked fire seen from across the room: pockets of heat at different
-       temperatures, not a single wash. Kept abstract on purpose — a gradient
-       pretending to be individual coals only ever reads as blur. */
-    radial-gradient(40% 32% at 18% 88%, rgb(255 146 52 / 0.9), transparent 70%),
-    radial-gradient(30% 24% at 40% 95%, rgb(255 118 30 / 0.85), transparent 72%),
-    radial-gradient(36% 28% at 62% 86%, rgb(246 96 18 / 0.85), transparent 72%),
-    radial-gradient(26% 21% at 84% 94%, rgb(232 82 14 / 0.78), transparent 74%),
-    radial-gradient(22% 18% at 95% 84%, rgb(214 70 10 / 0.6), transparent 76%),
-    radial-gradient(78% 44% at 50% 106%, rgb(150 36 4 / 0.9), transparent 76%),
-    linear-gradient(180deg, #120d0a 16%, #1c0f08 52%, #2e1205 100%);
+/* The display voice: the same face pushed wide and heavy, tracked tight.
+   Width and weight carry the personality, so no second typeface is needed. */
+.display {
+  font-family: var(--font-display);
+  font-variation-settings: "wdth" 118, "wght" 800;
+  letter-spacing: -0.03em;
+  line-height: 0.96;
 }
 
-/* Hotter pockets that swell and fade against the bed, so the fire is never
-   quite the same shape twice. */
+.display-sm {
+  font-family: var(--font-display);
+  font-variation-settings: "wdth" 112, "wght" 700;
+  letter-spacing: -0.02em;
+}
+
+/* ------------------------------------------------------------------
+   THE FIRE
+   ------------------------------------------------------------------ */
+.ember-bed {
+  background-color: #000;
+  /* The coals burn around 78-86% of the height, not at the very edge, so the
+     heat dies back into black before the section ends. Light that stops at a
+     straight horizontal line reads as a rectangle, not as fire. */
+  background-image:
+    radial-gradient(38% 26% at 18% 80%, rgb(255 138 44 / 0.85), transparent 72%),
+    radial-gradient(28% 20% at 42% 86%, rgb(255 112 26 / 0.8), transparent 74%),
+    radial-gradient(34% 23% at 64% 78%, rgb(226 86 26 / 0.8), transparent 74%),
+    radial-gradient(23% 17% at 86% 84%, rgb(200 64 12 / 0.7), transparent 76%),
+    radial-gradient(74% 34% at 50% 94%, rgb(120 28 3 / 0.75), transparent 78%),
+    linear-gradient(180deg, #000 24%, #090504 62%, #000 100%);
+}
+
 .ember-glow {
   background-image:
-    radial-gradient(14% 11% at 22% 90%, rgb(255 182 96 / 0.5), transparent 70%),
-    radial-gradient(11% 9% at 55% 92%, rgb(255 166 78 / 0.45), transparent 72%),
-    radial-gradient(12% 10% at 80% 89%, rgb(255 174 88 / 0.42), transparent 71%);
+    radial-gradient(12% 8% at 22% 82%, rgb(255 190 110 / 0.45), transparent 72%),
+    radial-gradient(9% 6% at 56% 85%, rgb(255 172 84 / 0.4), transparent 74%),
+    radial-gradient(10% 7% at 82% 81%, rgb(255 180 96 / 0.38), transparent 73%);
   mix-blend-mode: screen;
 }
 
-/* Sparks. A point of light is the one fire element that renders honestly —
-   it IS a small bright dot, so nothing is being faked. Each one drifts up and
-   burns out on its own schedule. */
+.ember-grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.42'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+  opacity: 0.35;
+}
+
+/* A hairline of heat along the bottom edge of a raised surface — the light
+   that spills out from the coals underneath whatever sits above them. */
+.lit-edge {
+  position: relative;
+}
+.lit-edge::after {
+  content: "";
+  position: absolute;
+  inset: auto 14% 0 14%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgb(226 86 26 / 0.5), transparent);
+  pointer-events: none;
+}
+
 .spark {
   position: absolute;
   width: 3px;
   height: 3px;
   border-radius: 999px;
-  background: rgb(255 214 150);
+  background: var(--color-whitehot);
   box-shadow: 0 0 6px 1px rgb(255 160 70 / 0.9);
   opacity: 0;
 }
 
-@keyframes spark-rise {
-  0% {
-    opacity: 0;
-    transform: translate3d(0, 0, 0) scale(0.5);
-  }
-  10% {
-    opacity: 1;
-    transform: translate3d(calc(var(--dx) * 0.15), -12%, 0) scale(1);
-  }
-  70% {
-    opacity: 0.75;
-  }
-  100% {
-    opacity: 0;
-    transform: translate3d(var(--dx), var(--dy), 0) scale(0.25);
-  }
-}
-
-/* Fine grain — the difference between "material" and "gradient". */
-.ember-grain {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.42'/%3E%3C/svg%3E");
-  mix-blend-mode: overlay;
-  opacity: 0.4;
-}
-
 /* ------------------------------------------------------------------
    MOTION
-   One authored moment (the coals catching) plus quiet feedback.
-   Everything starts from a visible default, so a failed script or an
-   unsupported property can never leave the page blank.
+   One authored moment — the coals catching. Everything else explains a
+   state change. Content always starts visible, so a failed script or an
+   unsupported property can never blank the page.
    ------------------------------------------------------------------ */
-@keyframes catch-light {
-  from {
-    opacity: 0;
-    transform: translate3d(0, 6%, 0) scale(0.97);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
 @keyframes breathe {
   0%,
   100% {
@@ -194,7 +176,6 @@
   }
 }
 
-/* The headline doesn't fade in — light spreads across it, like a coal catching. */
 @keyframes spread-light {
   from {
     -webkit-mask-position: 140% 0;
@@ -230,33 +211,54 @@
 
 @keyframes flare {
   0% {
-    box-shadow: 0 0 0 0 rgb(194 65 12 / 0.45);
+    box-shadow: 0 0 0 0 rgb(226 86 26 / 0.5);
   }
   70% {
-    box-shadow: 0 0 0 1.1rem rgb(194 65 12 / 0);
+    box-shadow: 0 0 0 1.1rem rgb(226 86 26 / 0);
   }
   100% {
-    box-shadow: 0 0 0 0 rgb(194 65 12 / 0);
+    box-shadow: 0 0 0 0 rgb(226 86 26 / 0);
+  }
+}
+
+@keyframes spark-rise {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) scale(0.5);
+  }
+  10% {
+    opacity: 1;
+    transform: translate3d(calc(var(--dx) * 0.15), -12%, 0) scale(1);
+  }
+  70% {
+    opacity: 0.75;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(var(--dx), var(--dy), 0) scale(0.25);
+  }
+}
+
+@keyframes recede {
+  to {
+    opacity: 0.3;
   }
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .anim-catch {
-    animation: catch-light 900ms var(--ease-heat) both;
-  }
-
   .anim-breathe {
     animation: breathe 7s ease-in-out infinite;
-  }
-
-  .sparks-on .spark {
-    animation: spark-rise var(--dur) ease-out var(--delay) infinite;
   }
 
   .anim-drift {
     animation: drift 15s ease-in-out infinite;
   }
 
+  .sparks-on .spark {
+    animation: spark-rise var(--dur) ease-out var(--delay) infinite;
+  }
+
+  /* The headline doesn't fade in — light spreads across it, like a coal catching. */
   .anim-spread {
     -webkit-mask-image: linear-gradient(100deg, #000 38%, rgb(0 0 0 / 0.15) 58%, transparent 72%);
     mask-image: linear-gradient(100deg, #000 38%, rgb(0 0 0 / 0.15) 58%, transparent 72%);
@@ -269,8 +271,6 @@
     animation: rise 620ms var(--ease-heat) both;
   }
 
-  /* A routine state change, not a focal entrance — so it moves half as far
-     and settles in well under half the time. */
   .anim-step {
     animation: step-in 380ms var(--ease-heat) both;
   }
@@ -279,20 +279,12 @@
     animation: flare 1200ms ease-out 1;
   }
 
-  /* The heat recedes as you scroll away from the grill. Scroll-linked, so the
-     relationship itself carries the meaning — and it costs no JavaScript. */
   @supports (animation-timeline: view()) {
     .anim-recede {
       animation: recede linear both;
       animation-timeline: view();
       animation-range: exit 0% exit 90%;
     }
-  }
-}
-
-@keyframes recede {
-  to {
-    opacity: 0.35;
   }
 }
 
@@ -303,19 +295,18 @@
     scroll-behavior: auto;
   }
 
-  .anim-catch,
-  .anim-rise {
+  .anim-rise,
+  .anim-spread {
     animation: rise 1ms linear both;
   }
 
-  /* The step still fades, so the change is still confirmed — it just doesn't travel. */
   .anim-step {
     animation: step-in 180ms linear both;
     transform: none !important;
   }
 
   .anim-breathe {
-    animation: breathe 12s ease-in-out infinite;
+    animation: breathe 14s ease-in-out infinite;
     transform: none !important;
   }
 
@@ -326,33 +317,32 @@
 
 /* ------------------------------------------------------------------
    SHADCN/UI BRIDGE
-   shadcn components are written against a fixed set of semantic tokens
-   (--popover, --primary, --ring ...). Pointing those at Baga's own
-   palette is what stops them arriving in the default neutral-grey look
-   that every other shadcn site ships with.
+   shadcn components are written against a fixed set of semantic tokens.
+   Pointing those at Baga's charcoal palette is what stops them arriving
+   in the default look they ship with.
    ------------------------------------------------------------------ */
 :root {
   --radius: 0.75rem;
 
-  --background: #faf7f2;
-  --foreground: #1c1917;
-  --card: #ffffff;
-  --card-foreground: #1c1917;
-  --popover: #ffffff;
-  --popover-foreground: #1c1917;
-  --primary: #c2410c;
-  --primary-foreground: #ffffff;
-  --secondary: #fff4ed;
-  --secondary-foreground: #9a3412;
-  --muted: #f5f5f4;
-  --muted-foreground: #57534e;
-  --accent: #fff4ed;
-  --accent-foreground: #9a3412;
-  --destructive: #b91c1c;
-  --destructive-foreground: #ffffff;
-  --border: #e7e5e4;
-  --input: #d6d3d1;
-  --ring: #e0561b;
+  --background: #000000;
+  --foreground: #cfc7b8;
+  --card: #17140f;
+  --card-foreground: #cfc7b8;
+  --popover: #17140f;
+  --popover-foreground: #cfc7b8;
+  --primary: #e2561a;
+  --primary-foreground: #000000;
+  --secondary: #221d17;
+  --secondary-foreground: #cfc7b8;
+  --muted: #221d17;
+  --muted-foreground: #8a8377;
+  --accent: #221d17;
+  --accent-foreground: #ffd9a0;
+  --destructive: #e5484d;
+  --destructive-foreground: #000000;
+  --border: #4a453e;
+  --input: #4a453e;
+  --ring: #ffd9a0;
 }
 
 @theme inline {

@@ -36,6 +36,7 @@ They then get a booking reference and can add the reservation to their calendar.
 
 - **React 19** — components and state
 - **Tailwind CSS 4** — styling, with brand tokens in `src/index.css`
+- **Archivo** — one variable typeface, carrying both display and body
 - **shadcn/ui** — Select, Popover and Calendar (Radix + react-day-picker underneath)
 - **lucide-react** — icons in the shadcn components
 - **Vite** — dev server and production build
@@ -87,6 +88,9 @@ src/
 - **Errors are designed out where possible.** Past dates can't be chosen at all, rather than being validated after the fact.
 - **Accessibility.** Real labels on every field, `aria-pressed` on toggle buttons, live announcements for changes, focus moved to each new step, and 44px touch targets.
 - **Dates use local time.** `toISOString()` converts to UTC and can shift the date by a day in the Philippines (UTC+8), so date keys are built from local date parts instead.
+- **One chroma, on black.** The page is charcoal: true black, warm ash greys, and ember as the only colour in the design. Restraint is what lets the ember read as heat rather than as a brand accent. Cream-and-serif was the earlier direction; it was dropped because it is the single most recognisable look in AI-generated design right now, and this restaurant is named after coals, not paper.
+- **One typeface.** Archivo, variable on both width and weight. The display voice is the same face pushed wide and heavy until it reads like stencilling on grill equipment — no second family needed.
+- **Black text on the ember buttons.** White on this orange is 3.8:1 and fails; black is 5.6:1.
 - **The hero is drawn, not photographed.** *Baga* means glowing embers, so the hero is a bed of heat with sparks lifting off it — rendered in CSS. It carries the brand without waiting on a photo shoot, and a real photograph can replace it later without touching the layout.
 - **One authored motion moment, not reveals everywhere.** The coals catching light on load is the only choreographed sequence. Everything else — the step connector filling, the guest count ticking, slots staggering in — exists to explain a state change. Every animation has a `prefers-reduced-motion` path that keeps the feedback and drops the movement.
 - **The sparks stop when nobody is watching.** An `IntersectionObserver` plus a `visibilitychange` listener pause the loop when the hero scrolls away or the tab is backgrounded.
